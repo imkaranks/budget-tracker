@@ -7,6 +7,7 @@ import { transactionService } from "@/services/transactions";
 import { TransactionFilters } from "./TransactionFilters";
 import { TransactionModal } from "./TransactionModal";
 import { TransactionListSkeleton } from "./skeletons/TransactionListSkeleton";
+import { formatCurrency } from "@/utils";
 
 export const TransactionListWithFilters = ({
   refreshTrigger,
@@ -124,7 +125,8 @@ export const TransactionListWithFilters = ({
                         tx.type === "income" ? "text-success" : "text-danger"
                       }`}
                     >
-                      {tx.type === "income" ? "+" : "-"}${tx.amount.toFixed(2)}
+                      {tx.type === "income" ? "+" : "-"}
+                      {formatCurrency(tx.amount)}
                     </p>
                     <div className="flex gap-2">
                       <button

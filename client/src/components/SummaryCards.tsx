@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { summaryService } from "@/services/summary";
-import { SkeletonLoader } from "./SkeletonLoader";
+import { SummaryCardsSkeleton } from "./skeletons/SummaryCardsSkeleton";
 
 interface SummaryData {
   totalIncome: number;
@@ -31,7 +31,7 @@ export const SummaryCards = () => {
   }, []);
 
   if (loading) {
-    return <SkeletonLoader count={3} height="h-24" />;
+    return <SummaryCardsSkeleton />;
   }
 
   if (!data) {

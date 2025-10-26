@@ -3,7 +3,8 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { budgetService } from "@/services/budget";
-import { SkeletonLoader } from "./SkeletonLoader";
+import { BudgetCardSkeleton } from "./skeletons/BudgetCardSkeleton";
+import { formatCurrency } from "@/utils";
 
 interface BudgetData {
   id: string | null;
@@ -70,7 +71,7 @@ export const BudgetCard = ({ onUpdate }: BudgetCardProps) => {
   };
 
   if (loading) {
-    return <SkeletonLoader height="h-64" />;
+    return <BudgetCardSkeleton />;
   }
 
   if (!budget) {
@@ -155,7 +156,7 @@ export const BudgetCard = ({ onUpdate }: BudgetCardProps) => {
             <div className="p-4 bg-background rounded-lg">
               <p className="text-muted-foreground text-sm mb-1">Budget</p>
               <p className="text-2xl font-bold text-primary">
-                ${budget.amount.toFixed(2)}
+                {formatCurrency(budget.amount)}
               </p>
             </div>
             <div className="p-4 bg-background rounded-lg">
@@ -165,7 +166,7 @@ export const BudgetCard = ({ onUpdate }: BudgetCardProps) => {
                   isOverBudget ? "text-danger" : "text-warning"
                 }`}
               >
-                ${budget.spent.toFixed(2)}
+                {formatCurrency(budget.spent)}
               </p>
             </div>
             <div className="p-4 bg-background rounded-lg">
@@ -175,7 +176,7 @@ export const BudgetCard = ({ onUpdate }: BudgetCardProps) => {
                   remaining > 0 ? "text-success" : "text-danger"
                 }`}
               >
-                ${remaining.toFixed(2)}
+                {formatCurrency(remaining)}
               </p>
             </div>
           </div>
@@ -204,8 +205,8 @@ export const BudgetCard = ({ onUpdate }: BudgetCardProps) => {
             </div>
             {isOverBudget && (
               <p className="text-danger text-sm mt-2">
-                You have exceeded your budget by $
-                {(budget.spent - budget.amount).toFixed(2)}
+                You have exceeded your budget by
+                {formatCurrency(budget.spent - budget.amount)}
               </p>
             )}
           </div>
@@ -224,11 +225,11 @@ export const BudgetCard = ({ onUpdate }: BudgetCardProps) => {
               }`}
             >
               {isOverBudget
-                ? `⚠️ Over Budget - You've spent $${(
+                ? `⚠️ Over Budget - You've spent ${formatCurrency(
                     budget.spent - budget.amount
-                  ).toFixed(2)} more than planned`
-                : `✓ On Track - You have $${remaining.toFixed(
-                    2
+                  )} more than planned`
+                : `✓ On Track - You have ${formatCurrency(
+                    remaining
                   )} left to spend this month`}
             </p>
           </div>

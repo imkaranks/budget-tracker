@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import type { Transaction } from "@/types";
 import { transactionService } from "@/services/transactions";
 import { TransactionRowSkeleton } from "./skeletons/TransactionRowSkeleton";
+import { formatCurrency } from "@/utils";
 
 interface TransactionListProps {
   refresh?: boolean;
@@ -65,7 +66,8 @@ export const TransactionList = ({ refresh }: TransactionListProps) => {
                   tx.type === "income" ? "text-success" : "text-danger"
                 }`}
               >
-                {tx.type === "income" ? "+" : "-"}${tx.amount.toFixed(2)}
+                {tx.type === "income" ? "+" : "-"}
+                {formatCurrency(tx.amount)}
               </p>
             </motion.div>
           ))}

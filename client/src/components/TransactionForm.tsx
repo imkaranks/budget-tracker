@@ -161,7 +161,7 @@ export const TransactionForm = ({
           type="date"
           value={date}
           onChange={(e) => setDate(e.target.value)}
-          className="w-full px-4 py-2 bg-card border border-border rounded-lg focus:outline-none focus:border-primary"
+          className="w-full px-4 py-2 bg-card border border-border rounded-lg dark:[&::-webkit-calendar-picker-indicator]:invert focus:outline-none focus:border-primary"
           required
         />
       </div>

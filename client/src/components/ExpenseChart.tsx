@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
 import { summaryService } from "@/services/summary";
-import { SkeletonLoader } from "./SkeletonLoader";
+import { ChartSkeleton } from "./skeletons/ChartSkeleton";
 
 export const ExpenseChart = () => {
   const svgRef = useRef<SVGSVGElement>(null);
@@ -80,7 +80,7 @@ export const ExpenseChart = () => {
   }, [data, loading]);
 
   if (loading) {
-    return <SkeletonLoader height="h-80" />;
+    return <ChartSkeleton />;
   }
 
   return (

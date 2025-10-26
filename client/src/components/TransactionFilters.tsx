@@ -81,7 +81,7 @@ export const TransactionFilters = ({
               setStartDate(e.target.value);
               // handleFilterChange();
             }}
-            className="w-full px-3 py-2 bg-background border border-border rounded-lg focus:outline-none focus:border-primary text-sm"
+            className="w-full px-3 py-2 bg-background border border-border rounded-lg dark:[&::-webkit-calendar-picker-indicator]:invert focus:outline-none focus:border-primary text-sm"
           />
         </div>
 
@@ -95,7 +95,7 @@ export const TransactionFilters = ({
               setEndDate(e.target.value);
               // handleFilterChange();
             }}
-            className="w-full px-3 py-2 bg-background border border-border rounded-lg focus:outline-none focus:border-primary text-sm"
+            className="w-full px-3 py-2 bg-background border border-border rounded-lg dark:[&::-webkit-calendar-picker-indicator]:invert focus:outline-none focus:border-primary text-sm"
           />
         </div>
 

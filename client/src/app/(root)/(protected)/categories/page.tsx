@@ -8,6 +8,7 @@ import { useAuth } from "@/hooks/useAuth";
 import type { Category } from "@/types";
 import { categoryService } from "@/services/categories";
 import { CategoryModal } from "@/components/CategoryModal";
+import { CategoryItemSkeleton } from "@/components/skeletons/CategoryItemSkeleton";
 
 export default function CategoriesPage() {
   const { isAuthenticated, loading, logout } = useAuth();
@@ -79,6 +80,9 @@ export default function CategoriesPage() {
     setRefreshKey((prev) => prev + 1);
   };
 
+  const incomeCategories = categories.filter((c) => c.type === "income");
+  const expenseCategories = categories.filter((c) => c.type === "expense");
+
   if (loading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
@@ -86,9 +90,6 @@ export default function CategoriesPage() {
       </div>
     );
   }
-
-  const incomeCategories = categories.filter((c) => c.type === "income");
-  const expenseCategories = categories.filter((c) => c.type === "expense");
 
   return (
     <div className="min-h-screen bg-background p-4 md:p-8">
@@ -143,39 +144,43 @@ export default function CategoriesPage() {
               <h2 className="text-2xl font-bold mb-4 text-success">
                 Income Categories
               </h2>
-              <div className="space-y-3">
-                {incomeCategories.length === 0 ? (
-                  <div className="p-4 bg-card border border-border rounded-lg text-center text-muted-foreground">
-                    No income categories yet
-                  </div>
-                ) : (
-                  incomeCategories.map((category, idx) => (
-                    <motion.div
-                      key={category.id}
-                      className="p-4 bg-card border border-border rounded-lg flex justify-between items-center hover:border-success transition"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: idx * 0.05 }}
-                    >
-                      <span className="font-medium">{category.name}</span>
-                      <div className="flex gap-2">
-                        <button
-                          onClick={() => handleEditClick(category)}
-                          className="px-3 py-1 bg-primary hover:bg-primary-dark hover:text-white text-primary-foreground rounded text-sm transition"
-                        >
-                          Edit
-                        </button>
-                        <button
-                          onClick={() => handleDelete(category.id)}
-                          className="px-3 py-1 bg-danger hover:bg-danger/80 text-white rounded text-sm transition"
-                        >
-                          Delete
-                        </button>
-                      </div>
-                    </motion.div>
-                  ))
-                )}
-              </div>
+              {isLoading ? (
+                <CategoryItemSkeleton count={2} />
+              ) : (
+                <div className="space-y-3">
+                  {incomeCategories.length === 0 ? (
+                    <div className="p-4 bg-card border border-border rounded-lg text-center text-muted-foreground">
+                      No income categories yet
+                    </div>
+                  ) : (
+                    incomeCategories.map((category, idx) => (
+                      <motion.div
+                        key={category.id}
+                        className="p-4 bg-card border border-border rounded-lg flex justify-between items-center hover:border-success transition"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: idx * 0.05 }}
+                      >
+                        <span className="font-medium">{category.name}</span>
+                        <div className="flex gap-2">
+                          <button
+                            onClick={() => handleEditClick(category)}
+                            className="px-3 py-1 bg-primary hover:bg-primary-dark hover:text-white text-primary-foreground rounded text-sm transition"
+                          >
+                            Edit
+                          </button>
+                          <button
+                            onClick={() => handleDelete(category.id)}
+                            className="px-3 py-1 bg-danger hover:bg-danger/80 text-white rounded text-sm transition"
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      </motion.div>
+                    ))
+                  )}
+                </div>
+              )}
             </motion.div>
 
             {/* Expense Categories */}
@@ -187,39 +192,43 @@ export default function CategoriesPage() {
               <h2 className="text-2xl font-bold mb-4 text-danger">
                 Expense Categories
               </h2>
-              <div className="space-y-3">
-                {expenseCategories.length === 0 ? (
-                  <div className="p-4 bg-card border border-border rounded-lg text-center text-muted-foreground">
-                    No expense categories yet
-                  </div>
-                ) : (
-                  expenseCategories.map((category, idx) => (
-                    <motion.div
-                      key={category.id}
-                      className="p-4 bg-card border border-border rounded-lg flex justify-between items-center hover:border-danger transition"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: idx * 0.05 }}
-                    >
-                      <span className="font-medium">{category.name}</span>
-                      <div className="flex gap-2">
-                        <button
-                          onClick={() => handleEditClick(category)}
-                          className="px-3 py-1 bg-primary hover:bg-primary-dark hover:text-white text-primary-foreground rounded text-sm transition"
-                        >
-                          Edit
-                        </button>
-                        <button
-                          onClick={() => handleDelete(category.id)}
-                          className="px-3 py-1 bg-danger hover:bg-danger/80 text-white rounded text-sm transition"
-                        >
-                          Delete
-                        </button>
-                      </div>
-                    </motion.div>
-                  ))
-                )}
-              </div>
+              {isLoading ? (
+                <CategoryItemSkeleton count={2} />
+              ) : (
+                <div className="space-y-3">
+                  {expenseCategories.length === 0 ? (
+                    <div className="p-4 bg-card border border-border rounded-lg text-center text-muted-foreground">
+                      No expense categories yet
+                    </div>
+                  ) : (
+                    expenseCategories.map((category, idx) => (
+                      <motion.div
+                        key={category.id}
+                        className="p-4 bg-card border border-border rounded-lg flex justify-between items-center hover:border-danger transition"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: idx * 0.05 }}
+                      >
+                        <span className="font-medium">{category.name}</span>
+                        <div className="flex gap-2">
+                          <button
+                            onClick={() => handleEditClick(category)}
+                            className="px-3 py-1 bg-primary hover:bg-primary-dark hover:text-white text-primary-foreground rounded text-sm transition"
+                          >
+                            Edit
+                          </button>
+                          <button
+                            onClick={() => handleDelete(category.id)}
+                            className="px-3 py-1 bg-danger hover:bg-danger/80 text-white rounded text-sm transition"
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      </motion.div>
+                    ))
+                  )}
+                </div>
+              )}
             </motion.div>
           </div>
         </div>

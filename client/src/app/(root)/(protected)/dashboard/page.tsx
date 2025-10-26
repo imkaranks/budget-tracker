@@ -49,7 +49,7 @@ export default function DashboardPage() {
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 0.1 }}
+                transition={{ duration: 0.3, delay: 0.1 }}
               >
                 <h1 className="text-4xl font-bold">Dashboard</h1>
                 <p className="text-muted-foreground mt-2">
@@ -60,7 +60,7 @@ export default function DashboardPage() {
                 className="flex gap-4"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 0.1 }}
+                transition={{ duration: 0.3, delay: 0.1 }}
               >
                 <Link
                   href="/transactions"
@@ -82,7 +82,7 @@ export default function DashboardPage() {
               className="mb-8"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.2 }}
+              transition={{ duration: 0.3, delay: 0.2 }}
             >
               <SummaryCards />
             </motion.div>
@@ -92,7 +92,7 @@ export default function DashboardPage() {
               className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.3 }}
+              transition={{ duration: 0.3, delay: 0.2 }}
             >
               <IncomeExpenseChart />
               <ExpenseChart />
@@ -103,7 +103,7 @@ export default function DashboardPage() {
               className="bg-card border border-border rounded-lg p-6"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
+              transition={{ duration: 0.3, delay: 0.3 }}
             >
               <h2 className="text-xl font-bold mb-6">Recent Transactions</h2>
               <TransactionList refresh={refreshTransactions} />

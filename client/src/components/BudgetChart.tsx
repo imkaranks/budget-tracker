@@ -3,7 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
 import { budgetService } from "@/services/budget";
-import { SkeletonLoader } from "./SkeletonLoader";
+import { ChartSkeleton } from "./skeletons/ChartSkeleton";
+import { formatCurrency } from "@/utils";
 
 interface BudgetData {
   amount: number;
@@ -88,7 +89,7 @@ export const BudgetChart = ({ refreshKey }: BudgetChartProps) => {
   }, [data, loading]);
 
   if (loading) {
-    return <SkeletonLoader height="h-80" />;
+    return <ChartSkeleton />;
   }
 
   return (
@@ -101,13 +102,13 @@ export const BudgetChart = ({ refreshKey }: BudgetChartProps) => {
             <div className="p-4 bg-background rounded-lg">
               <p className="text-muted-foreground text-sm mb-1">Budget</p>
               <p className="text-2xl font-bold text-primary">
-                ${data.amount.toFixed(2)}
+                {formatCurrency(data.amount)}
               </p>
             </div>
             <div className="p-4 bg-background rounded-lg">
               <p className="text-muted-foreground text-sm mb-1">Spent</p>
               <p className="text-2xl font-bold text-danger">
-                ${data.spent.toFixed(2)}
+                {formatCurrency(data.spent)}
               </p>
             </div>
           </div>
